@@ -43,4 +43,80 @@ Info: Oft werden Strings auch als <pre>char myString[] = "Hallo";</pre> definier
 
 ### 3.
 
+Der gesamte Quellcode:
+
+<pre>
+#include <stdio.h>
+
+void subtract3(int * num) {
+    *num = *num - 3;
+}
+
+int main() {
+    int num = 33;
+
+    printf("bevor: %d\n", num);
+
+    subtract3(&num);
+
+    printf("danach: %d\n", num);
+}
+</pre>
+
+## Für "Am Schwersten"
+
+### 1.
+
+Um von dem 10-fach-Zeiger 'ptrToNum' aus auf den Wert von 'num' zuzugreifen, muss man den Dereference Operator zehn mal verwenden:
+
+<pre>
+printf("%d", **********ptrToNum);
+</pre>
+
+### 2.
+
+<pre>
+#include <stdio.h>
+
+int main() {
+    int numArr[] = {1, 92, 36};
+
+    * ( numArr + 2) = 4;
+
+    printf("%d", numArr[2]);
+}
+</pre>
+
+Statt <code>p[3]</code> könnte man <code>* (p + 1)</code> schreiben.
+
+### 3.
+
+Der vollstandige Quellcode:
+
+<pre>
+#include <stdio.h>
+
+int main() {
+    char * stringArr[5] = {"Hallo, ", "mein ", "Name ", "ist ", "Peter."};
+
+    // strcpy() kopiert einen String in einen anderen String, dabei ist es wichtig, dass beim Target-String (also 'satz') eine Länge vorbestimmt wird, in dem alles reinpasst (also alles vom 'StringArr').
+    // Wir kopieren schonmal das "Hallo" aus dem String-Array rein, denn strcat braucht schon eine Grundlage um von dort aus dann weitere Strings hinzuzufügen.
+    char satz[500];
+    strcpy(satz, stringArr[0]);
+
+    for (int i = 1; i < 5; i ++) {
+        strcat(satz, stringArr[i]);
+    }
+
+    printf(satz);
+}
+</pre>
+
+Wichtig: Strings darf man <u>nicht</u> mit einem Doppelpointer definieren, also nicht so:
+
+<pre>
+// das ist FALSCH
+char ** stringArr = {"Hallo, ", "mein ", "Name ", "ist ", "Peter."};
+</pre>
+
 
